@@ -1,0 +1,76 @@
+.color-background {
+	background-image: linear-gradient(0deg, #04c0c6, #2ba3de 51%, #835be3);
+}
+.color-null {
+	background: #FFF;
+	border-radius: 20px;
+	border: 2px solid #835be3;
+}
+@keyframes fallingStar {
+	0% {
+		transform: translate3d(0, -100%, 0)
+	}
+	to {
+		transform: translate3d(0,710px, 0)
+	}
+}
+.animation1 {
+	left: 15%;
+}
+.animation {
+	height: 100%;
+	position: absolute;
+	top: 0;
+	border-right: 1px solid hsla(0, 0%, 100%, .3);
+	transform: scaleX(.5);
+}
+.animation1:before {
+	width: 4px;
+	height: 18px;
+	opacity: .8;
+	animation: fallingStar 1.3s ease-in-out infinite;
+}
+.animation:before {
+	position: absolute;
+	background: #fff;
+	content: "";
+	transform: translate3d(0, -100%, 0);
+}
+.animation2 {
+	left: 30%
+}
+.animation2:before {
+	left: -3px;
+	width: 6px;
+	height: 24px;
+	animation: fallingStar 1.5s ease-in-out infinite
+}
+.animation3 {
+	left: 52%
+}
+.animation3:before {
+	width: 4px;
+	height: 14px;
+	opacity: .6;
+	animation: fallingStar 2s ease-in-out infinite
+}
+.animation4 {
+	left: 65%
+}
+.animation4:before {
+	left: -3px;
+	width: 6px;
+	height: 24px;
+	animation: fallingStar 1.5s ease-in-out infinite
+}
+.animation5 {
+	left: 85%
+}
+.animation5:before {
+	width: 4px;
+	height: 18px;
+	opacity: .8;
+	animation: fallingStar 1.3s ease-in-out infinite
+}
+
+

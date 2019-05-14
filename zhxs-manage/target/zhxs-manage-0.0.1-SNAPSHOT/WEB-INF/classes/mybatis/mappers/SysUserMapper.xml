@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhxs.sys.dao.UserDao">
+	<sql id="allRows">
+		id, username, password, salt, name, nickname, createtime
+	</sql>
+	<sql id="whereInfo">
+		<where>
+			<if test="username !=null and username != ''">
+				and username like concat("%", #{username}, "%")
+			</if>
+			<if test="name !=null and name != ''">
+				and name like concat("%", #{name}, "%")
+			</if>
+			<if test="nickname !=null and nickname != ''">
+				and nickname like concat("%", #{nickname}, "%")
+			</if>
+		</where>
+	</sql>
+	<select id="findUserByUserName"
+		resultType="com.zhxs.sys.entity.SysUser">
+		select
+		<include refid="allRows" />
+		from user where username = #{username}
+	</select>
+	<insert id="insertUser">
+		insert into user(id, username, password, salt, name,
+		nickname, createtime)
+		values(#{id}, #{username}, #{password}, #{salt},
+		#{name}, #{nickname}, now())
+	</insert>
+	<select id="findNicknameById" resultType="String">
+		select
+		nickname
+		from user
+		where id = #{id}
+	</select>
+	<update id="updateUserById">
+		update user set name = #{name}, nickname =
+		#{nickname}
+		where id = #{id}
+	</update>
+	<insert id="insertClassUser">
+		insert into clazzuser(id, clazzid, userid, level)
+		values(null, #{clazzid}, #{userid}, #{level})
+	</insert>
+	<select id="findAllUser" resultType="com.zhxs.sys.entity.SysUser">
+		select
+		<include refid="allRows"></include>
+		from user
+		<include refid="whereInfo"></include>
+	</select>
+	<delete id="deleteUserById">
+		delete from user where id=#{id}
+	</delete>
+	<select id="getUserCount" resultType="int">
+		select count(*) from user;
+	</select>
+	<update id="updatePassword">
+		update user set password = #{password}, salt = #{salt} where id = #{id}
+	</update>
+</mapper>

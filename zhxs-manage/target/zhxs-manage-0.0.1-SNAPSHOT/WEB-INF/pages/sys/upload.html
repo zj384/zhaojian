@@ -1,0 +1,49 @@
+<div class="content">
+	<div class="cont w1000">
+		<div class="whisper-list">
+			<div class="item-box">
+				<div class="review-version">
+					<img class="banner-img" src="../res/img/liuyan.jpg">
+					<div class="layui-content">
+						<div class="layui-form">
+							<input type="hidden" name="id" />
+							<div class="layui-form-item">
+								<label class="layui-form-label">班&#12288;&#12288;级:</label>
+								<div class="layui-input-block">
+									<input type="radio" name="clazzid" id="rax" value="小学"
+										title="小学" disabled=""> <input type="radio"
+										name="clazzid" id="rac" value="初中" title="初中" disabled="">
+									<input type="radio" name="clazzid" id="rag" value="高中"
+										title="高中" disabled="">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">图&#12288;&#12288;片:</label>
+								<div class="layui-upload">
+									<button type="button" class="layui-btn" id="uploadFile">上传图片</button>
+									<div class="layui-upload-list" id="imgwh">
+										<img class="layui-upload-img" id="demo1">
+									</div>
+								</div>
+							</div>
+							<div class="layui-form-item layui-form-text">
+								<label class="layui-form-label">描&#12288;&#12288;述:</label>
+								<div class="layui-upload-list">
+									<textarea name="ddr" placeholder="既然来了，就写下照片中的故事吧!"
+										class="layui-textarea"></textarea>
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<button lay-submit lay-filter="addimage"
+									class="layui-btn layui-btn-fluid">確定</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div id="demo" style="text-align: center;"></div>
+	</div>
+</div>
+<script src="../js/upload.js"></script>

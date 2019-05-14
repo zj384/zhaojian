@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" href="../layuiadmin/layui/css/layui.css"/>
+
+<title></title>
+</head>
+<body class="layui-view-body">
+	<div class="layui-content">
+		<div class="layui-card-header">表单</div>
+		<form class="layui-form layui-card-body" action="" id="level">
+			<div class="layui-form-item">
+				<label class="layui-form-label">所在的省</label>
+				<div class="layui-input-block">
+					<select name="provinceid" lay-filter="province"
+						lay-verify="required">
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">所在的市</label>
+				<div class="layui-input-block">
+					<select name="cityid" lay-filter="city" lay-verify="required">
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">所在的县/区</label>
+				<div class="layui-input-block">
+					<select name="countyid" lay-filter="county" lay-verify="required">
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">学校名称</label>
+				<div class="layui-input-block">
+					<input type="hidden" name="schoollevel" class="layui-input">
+					<select name="schoolname" lay-filter="schoolname" lay-verify="required">
+						<option value="">请选择</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">入学年份</label>
+				<div class="layui-input-block">
+					<input name="year" type="text" id="year" lay-filter="year" required lay-verify="required" placeholder="请输入入学年份" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">班级</label>
+				<div class="layui-input-block">
+					<input type="text" name="class"lay-filter="class" oninput="value=value.replace(/[^\d]/g,'')" required lay-verify="required" placeholder="请输入标题" class="layui-input">  
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="../layuiadmin/layui/layui.all.js"></script>
+	<script src="../js/select.js"></script>
+	<script src="../js/addSchool.js"></script>
+</body>
+</html>

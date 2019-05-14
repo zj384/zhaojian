@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhxs.sys.dao.SchoolDao">
+	<sql id="queryWhereSchoolName">
+		<where>
+			<if test="schoolname != null and schoolname != ''">
+				schoolname like concat("%", #{schoolname}, "%")
+			</if>
+			<if test="cityid != null and cityid != ''">
+				and cityid = #{cityid}
+			</if>
+			<if test="countyid != null and countyid != ''">
+				and countyid = #{countyid}
+			</if>
+			<if test="provinceid != null and provinceid != ''">
+				and provinceid = #{provinceid}
+			</if>
+
+		</where>
+	</sql>
+	<sql id="updateById">
+		<set>
+			<if test="schoolname != null and schoolname != ''">
+				schoolname=#{schoolname},
+			</if>
+			<if test="cityid != null and cityid != ''">
+				cityid=#{cityid},
+			</if>
+			<if test="countyid != null and countyid != ''">
+				countyid=#{countyid},
+			</if>
+			<if test="provinceid != null and provinceid != ''">
+				provinceid=#{provinceid},
+			</if>
+			<if test="sctypeid != null and sctypeid != ''">
+				sctypeid=#{sctypeid}
+			</if>
+		</set>
+	</sql>
+	<sql id="ByCountyId">
+		<where>
+				and countyid = #{countyid}
+			<if test="sctypeid != null and sctypeid == 101">
+				and sctypeid = 1 or sctypeid = 3 or sctypeid = 4 or
+				sctypeid = 6 or
+				sctypeid = 7 or sctypeid = 8 or sctypeid = 9
+			</if>
+			<if test="sctypeid != null and sctypeid == 102">
+				and sctypeid = 2 or sctypeid = 3 or sctypeid = 5 or
+				sctypeid = 6 or
+				sctypeid = 7 or sctypeid = 8 or sctypeid = 9
+			</if>
+			<if test="sctypeid != null and sctypeid == 103">
+				and sctypeid = 2 or sctypeid = 5 or sctypeid = 7 or
+				sctypeid = 8 or
+				sctypeid = 9
+			</if>
+		</where>
+	</sql>
+	<sql id="allRow">
+		id, schoolname, cityid, countyid, provinceid, sctypeid
+	</sql>
+
+	<resultMap type="com.zhxs.sys.vo.SchoolResult" id="schoolMap">
+		<association property="city" column="cityid"
+			select="com.zhxs.sys.dao.CityDao.findCityById">
+		</association>
+		<association property="county" column="countyid"
+			select="com.zhxs.sys.dao.CityDao.findCityById">
+		</association>
+		<association property="province" column="provinceid"
+			select="com.zhxs.sys.dao.CityDao.findCityById">
+		</association>
+		<association property="sctype" column="sctypeid"
+			select="com.zhxs.sys.dao.SchoolTypeDao.findSchoolTypeById">
+		</association>
+	</resultMap>
+
+	<!-- 查询所有学校信息 -->
+	<select id="findAllObject" resultMap="schoolMap">
+		select
+		<include refid="allRow"></include>
+		from school
+		<include refid="queryWhereSchoolName"></include>
+	</select>
+	<!-- 查询所有学校信息 -->
+	<select id="findSchoolByCountyId" resultMap="schoolMap">
+		select
+		<include refid="allRow"></include>
+		from school
+		<include refid="ByCountyId"></include>
+		order by convert(schoolname using gbk) asc;
+
+	</select>
+
+	<insert id="insertSchool">
+		insert into school(id, schoolname, cityid, countyid,
+		provinceid, sctypeid)
+		values(null, #{schoolname}, #{cityid},
+		#{countyid}, #{provinceid}, #{sctypeid})
+	</insert>
+	<delete id="deleteSchoolById">
+		delete from school where id = #{id}
+	</delete>
+	<update id="updateSchool">
+		update school
+		<include refid="updateById"></include>
+		where id=#{id}
+	</update>
+	<select id="findSchoolById" resultType="String">
+		select
+		schoolname
+		from
+		school where id = #{schoolid}
+	</select>
+
+</mapper>

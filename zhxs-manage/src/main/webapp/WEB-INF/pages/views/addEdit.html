@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" />
+<link rel="stylesheet" href="../layuiadmin/layui/css/view.css" />
+<title></title>
+</head>
+<body class="layui-view-body">
+	<div class="layui-content">
+		<div class="layui-card-header">添加学校</div>
+		<form class="layui-form layui-card-body" action="">
+			<div class="layui-form-item">
+				<label class="layui-form-label">学校名称</label>
+				<div class="layui-input-block">
+					<input type="text" name="schoolname" id="schoolname"
+						lay-verify="required" placeholder="请输入学校名称" autocomplete="off"
+						class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">所在的省</label>
+				<div class="layui-input-block">
+					<select name="provinceid" lay-filter="province"
+						lay-verify="required">
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">所在的市</label>
+				<div class="layui-input-block">
+					<select name="cityid" lay-filter="city" lay-verify="required">
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">所在的县/区</label>
+				<div class="layui-input-block">
+					<select name="countyid" lay-filter="county" lay-verify="required">
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">学校类型</label>
+				<div class="layui-input-block">
+					<select name="sctypeid" lay-filter="schoolType"
+						lay-verify="required">
+					</select>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="../layuiadmin/layui/layui.all.js"></script>
+	<script src="../js/manage.js"></script>
+	<script src="../js/select.js"></script>
+	<script src="../js/addEdit.js"></script>
+</body>
+</html>

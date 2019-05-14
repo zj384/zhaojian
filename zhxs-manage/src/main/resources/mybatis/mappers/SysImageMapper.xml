@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhxs.sys.dao.ImageDao">
+	<sql id="allRows">
+		id, clazzid, userid, url, ddr, createtime
+	</sql>
+	<sql id="findByXXX">
+		<where>
+			<if test="clazzid != null and clazzid != ''">
+				clazzid = #{clazzid}
+			</if>
+			<if test="userid != null and userid != ''">
+				and userid = #{userid}
+			</if>
+		</where>
+	</sql>
+	<sql id="setInfo">
+		<set>
+             <if test="url!=null and url!=''">
+               url=#{url},
+             </if>
+             <if test="ddr!=null and ddr!=''">
+               ddr=#{ddr},
+             </if>
+             <if test="clazzid!=null and clazzid!=''">
+               clazzid=#{clazzid},
+             </if>
+             createtime = now()
+		</set>
+	</sql>
+	<resultMap type="com.zhxs.sys.vo.ImageResult" id="imageInfo">
+ 		<association property="nickname" column="userid"
+			select="com.zhxs.sys.dao.UserDao.findNicknameById">
+		</association>
+		<association property="clazzname" column="clazzid"
+			select="com.zhxs.sys.dao.ClassDao.findClassNameByClassId">
+		</association>
+	</resultMap>
+	<!-- 新增照片 -->
+	<insert id="insertImage">
+		insert into image(id, clazzid, userid, url, ddr,
+		createtime)
+		values(null, #{clazzid},#{userid},#{url},#{ddr},now())
+	</insert>
+	<!-- 根据userid和classid查询图片 -->
+	<select id="findImage" resultMap="imageInfo">
+		select
+		<include refid="allRows"></include>
+		from image
+		<include refid="findByXXX"></include>
+		order by createtime desc
+		limit #{startIndex},#{limit}
+	</select>
+	<select id="findImageById" resultMap="imageInfo">
+		select
+		<include refid="allRows"></include>
+		from image
+		where id = #{id}
+	</select>
+	<select id="findClassIdByUserIdAndLevel" resultType="String">
+		select clazzid from clazzuser where userid = #{userid} and level = #{level}
+	</select>
+	<update id="updateImage">
+		update image
+		<include refid="setInfo"></include>
+		where id = #{id}
+	</update>
+	<select id="findPageImage" resultMap="imageInfo">
+		select
+		<include refid="allRows"></include>
+		from image
+		order by createtime desc
+		limit #{startIndex},#{pageSize}
+	</select>
+	<select id="selectImageCount" resultType="int">
+		select
+		count(*)
+		from image
+	</select>
+	<delete id="deleteImageById">
+		delete from image where id=#{id}
+	</delete>
+	
+
+</mapper>

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: zhxs-common
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: hehda
+Implementation-Vendor-Id: com.zj.zhxs
+Build-Jdk: 1.8.0_191
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/zhxs/zhxs-common
+Created-By: Maven Integration for Eclipse
+

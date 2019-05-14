@@ -1,0 +1,64 @@
+
+<div class="content">
+	<div class="layui-fluid">
+		<div class="layui-row layui-col-space15">
+			<div class="layui-col-md12">
+				<div class="layui-card">
+					<div class="layui-card-header">设置我的资料</div>
+					<div class="layui-card-body" pad15>
+
+						<div class="layui-form" lay-filter="">
+
+							<div class="layui-form-item">
+								<label class="layui-form-label">用户名</label>
+								<div class="layui-input-inline">
+									<input type="text" name="username" value="xianxin" readonly
+										class="layui-input">
+								</div>
+								<div class="layui-form-mid layui-word-aux">不可修改。一般用于后台登入名</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">姓名</label>
+								<div class="layui-input-inline">
+									<input type="text" name="name" value="贤心" lay-verify="name"
+										autocomplete="off" placeholder="请输入姓名" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">昵称</label>
+								<div class="layui-input-inline">
+									<input type="text" name="nickname" value="贤心"
+										lay-verify="nickname" autocomplete="off" placeholder="请输入昵称"
+										class="layui-input">
+								</div>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">小学</label> <input type="hidden"
+									name="xiaoxue" />
+								<button id="xiaoxue" class="layui-btn layui-btn-normal">请选择你的学校</button>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">初中</label> <input type="hidden"
+									name="chuzhong" />
+								<button id="chuzhong" class="layui-btn layui-btn-normal">请选择你的学校</button>
+							</div>
+							<div class="layui-form-item">
+								<label class="layui-form-label">高中</label> <input type="hidden"
+									name="gaozhong" />
+								<button id="gaozhong" class="layui-btn layui-btn-normal">请选择你的学校</button>
+							</div>
+							<div class="layui-form-item">
+								<div class="layui-input-block">
+									<button class="layui-btn" lay-submit lay-filter="setmyinfo">确认修改</button>
+									<button class="layui-btn layui-btn-primary back">返回</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="../js/info.js"></script>

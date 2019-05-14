@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>注册亿年相册</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<link rel="stylesheet" href="layuiadmin/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="layuiadmin/style/admin.css" media="all">
+<link rel="stylesheet" href="layuiadmin/style/login.css" media="all">
+<link rel="stylesheet" href="res/css/mycss.css" media="all">
+<link rel="shortcut icon" href="/icon.ico"
+	type="image/x-icon" />
+</head>
+<body>
+	<div class="layadmin-user-login layadmin-user-display-show color-background"
+		id="LAY-user-login" style="display: none;">
+		<div class="animation animation1"></div>
+		<div class="animation animation2"></div>
+		<div class="animation animation3"></div>
+		<div class="animation animation4"></div>
+		<div class="animation animation5"></div>
+		<div class="layadmin-user-login-main color-null">
+			<div class="layadmin-user-login-box layadmin-user-login-header">
+				<h2>欢迎注册</h2>
+				<p>在这里开始寻回你的学生时代</p>
+			</div>
+			<div
+				class="layadmin-user-login-box layadmin-user-login-body layui-form">
+				<div class="layui-form-item">
+					<label
+						class="layadmin-user-login-icon layui-icon layui-icon-username"
+						for="LAY-user-login-username"></label> <input type="text"
+						name="username" id="LAY-user-login-username" lay-verify="username"
+						placeholder="用户名" class="layui-input">
+				</div>
+				<div class="layui-form-item">
+					<label
+						class="layadmin-user-login-icon layui-icon layui-icon-password"
+						for="LAY-user-login-password"></label> <input type="password"
+						name="password" id="LAY-user-login-password" lay-verify="pass"
+						placeholder="密码" class="layui-input">
+				</div>
+				<div class="layui-form-item">
+					<label
+						class="layadmin-user-login-icon layui-icon layui-icon-password"
+						for="LAY-user-login-repass"></label> <input type="password"
+						name="repass" id="LAY-user-login-repass" lay-verify="pass"
+						placeholder="确认密码" class="layui-input">
+				</div>
+				<div class="layui-form-item">
+					<label
+						class="layadmin-user-login-icon layui-icon layui-icon-username"
+						for="LAY-user-login-name"></label> <input type="text" name="name"
+						id="LAY-user-login-name" lay-verify="name" placeholder="真实姓名"
+						class="layui-input">
+				</div>
+				<div class="layui-form-item">
+					<label
+						class="layadmin-user-login-icon layui-icon layui-icon-username"
+						for="LAY-user-login-nickname"></label> <input type="text"
+						name="nickname" id="LAY-user-login-nickname" lay-verify="nickname"
+						placeholder="昵称" class="layui-input">
+				</div>
+				<div class="layui-form-item">
+					<input type="checkbox" name="agreement" lay-skin="primary"
+						title="同意用户协议" checked>
+				</div>
+				<div class="layui-form-item">
+					<button class="layui-btn layui-btn-fluid" lay-submit
+						lay-filter="LAY-user-reg-submit">注 册</button>
+				</div>
+				<div class="layui-trans layui-form-item layadmin-user-login-other">
+					<a href="doLoginUI"
+						class="layadmin-user-jump-change layadmin-link layui-hide-xs">用已有帐号登入</a>
+					<a href="doLoginUI"
+						class="layadmin-user-jump-change layadmin-link layui-hide-sm layui-show-xs-inline-block">登入</a>
+				</div>
+			</div>
+		</div>
+		<div class="layui-trans layadmin-user-login-footer">
+				<p>
+				© 2019 <a href="#" target="_blank">zjsolucky.com</a>
+			</p>
+			<p>
+				<span><a href="#" target="_blank">毕业设计</a></span> <span><a
+					href="#" target="_blank">共享相册</a></span> <span><a
+					href="#" target="_blank">朝花夕拾</a></span>
+			</p>
+		</div>
+	</div>
+	<script src="layuiadmin/layui/layui.all.js"></script>
+	<script src="js/reg.js"></script>
+</body>
+</html>

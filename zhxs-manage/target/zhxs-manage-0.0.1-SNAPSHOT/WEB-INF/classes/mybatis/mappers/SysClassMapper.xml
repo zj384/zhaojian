@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhxs.sys.dao.ClassDao">
+	<sql id="allRows">
+		id, schoolid, clazz, level, year, name
+	</sql>
+	<resultMap type="com.zhxs.sys.vo.ClassResult" id="ClassMap">
+		<association property="schoolname" column="schoolid"
+			select="com.zhxs.sys.dao.SchoolDao.findSchoolById">
+		</association>
+	</resultMap>
+	<insert id="insertClass">
+		insert into clazz(id, schoolid, clazz, level, year, name)
+		values(#{id}, #{schoolid}, #{clazz}, #{level}, #{year}, #{name})
+	</insert>
+	<select id="findIdByClass" resultType="String">
+		select
+		id
+		from clazz
+		where schoolid = #{schoolid} and clazz = #{clazz} and level = #{level} and year = #{year}
+	</select>
+	<!-- 根据用户id在关系表查询班级id -->
+	<select id="findClassByUserId" resultType="String">
+		select
+		clazzid
+		from clazzuser 
+		where userid = #{userid}
+	</select>
+	<!-- 根据classId查询班级名称 -->
+ 	<select id="findClassNameByClassId" resultType="String">
+		select
+		name
+		from clazz 
+		where id = #{clazzid}
+	</select>
+	<select id="findClassByClassId" resultMap="ClassMap">
+		select
+		<include refid="allRows"></include>
+		from clazz
+		where id in
+		<foreach collection="clazzse"
+                  open="("
+                  close=")"
+                  separator=","
+                  item="id">
+                  #{id}
+         </foreach>   
+	</select>
+</mapper>

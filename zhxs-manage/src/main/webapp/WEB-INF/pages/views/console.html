@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" />
+<link rel="stylesheet" href="../layuiadmin/layui/css/view.css" />
+<title></title>
+</head>
+<body class="layui-view-body">
+	<div class="layui-content">
+		<div class="layui-row layui-col-space20">
+			<div class="layui-col-sm6 layui-col-md3">
+				<div class="layui-card">
+					<div class="layui-card-body chart-card">
+						<div class="chart-header">
+							<div class="metawrap">
+								<div class="meta">
+									<span>总用户数</span>
+								</div>
+								<div class="total">NULL</div>
+							</div>
+						</div>
+						<div class="chart-body">
+							<div class="contentwrap">NULL</div>
+						</div>
+						<div class="chart-footer">
+							<div class="field">
+								<span>操作量</span> <span class="logsCount">NULL</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-sm12 layui-col-md12">
+				<div class="layui-card">
+					<div class="layui-card-body">
+						<table class="layui-hide" id="logTable" lay-filter="demo"></table>
+						<button class="layui-btn layui-btn-danger" style="float: right;"
+							data-type="getCheckData">
+							<i class="layui-icon">&#xe640;</i>
+						</button>
+						<div id="conPage"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../layuiadmin/layui/layui.all.js"></script>
+	<script src="../js/manage.js"></script>
+	<script src="../js/console.js"></script>
+
+</body>
+</html>
