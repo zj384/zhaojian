@@ -5,22 +5,31 @@ import java.util.List;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.druid.util.StringUtils;
 import com.zhxs.common.annotation.RequestLog;
 import com.zhxs.common.exception.ServiceException;
+import com.zhxs.common.util.ShiroUtils;
 import com.zhxs.sys.dao.ImageDao;
+import com.zhxs.sys.dao.LoveDao;
 import com.zhxs.sys.entity.SysImage;
+import com.zhxs.sys.entity.SysLove;
 import com.zhxs.sys.entity.SysUser;
 import com.zhxs.sys.service.ImageService;
+import com.zhxs.sys.vo.FindImgCon;
+import com.zhxs.sys.vo.ImageCondition;
 import com.zhxs.sys.vo.ImageResult;
 @Service
 public class ImageServiceImpl implements ImageService {
 	@Autowired
 	private ImageDao imageDao;
+	@Autowired
+	private LoveDao loveDao;
 
 	@RequestLog("图片信息保存")
 	@Override
+	@Transactional
 	public int saveImage(SysImage sysImage) {
 		SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
 		if (user == null) {
@@ -33,7 +42,6 @@ public class ImageServiceImpl implements ImageService {
 			throw new ServiceException("请选择班级");
 		}
 		sysImage.setUserid(user.getId());
-		
 		int rows = 0;
 		try {
 			rows = imageDao.insertImage(sysImage);
@@ -45,24 +53,43 @@ public class ImageServiceImpl implements ImageService {
 	}
 	@RequestLog("浏览图片")
 	@Override
-	public List<ImageResult> findImage(Integer level, Integer isUser, Integer page, Integer limit) {
+	public List<ImageResult> findImage(ImageCondition imageCondition) {
 		SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
-		int startIndex = limit * (page-1);
+		int startIndex = imageCondition.getLimit() * (imageCondition.getPage()-1);
 		if (user == null) {
 			throw new ServiceException("请先登录!");
 		}
-		String clazzid = imageDao.findClassIdByUserIdAndLevel(user.getId(), level);
+		String clazzid = imageDao.findClassIdByUserIdAndLevel(user.getId(), imageCondition.getLevel());
 		
-		if (StringUtils.isEmpty(clazzid) && isUser == 0) {
+		if (StringUtils.isEmpty(clazzid) && imageCondition.getIsUser() == 0) {
 			throw new ServiceException("您未添加此班级");
 		}
 		List<ImageResult> findImage = null;
+		FindImgCon findImgCon = new FindImgCon();
+		String userid = user.getId();
+		findImgCon.setIslove(imageCondition.getIslove());//是否根据点赞数条件查询
+		findImgCon.setLimit(imageCondition.getLimit());
+		findImgCon.setStartIndex(startIndex);
+		findImgCon.setClazzid(clazzid);
+		findImgCon.setUserid(userid);
+		String loveId = null; 
+		ImageResult imageResult = null;
 		try {
-			if (isUser == 0) {
-				startIndex = page>1?(startIndex+1):startIndex;
-				findImage = imageDao.findImage(null, clazzid, startIndex, limit);
-			} else if(isUser == 1) {
-				findImage = imageDao.findImage(user.getId(), null, startIndex, limit);
+			if (imageCondition.getIsUser() == 0) {
+				findImgCon.setIsuser(0);
+				// 根据班级id查询
+				findImage = imageDao.findImage(findImgCon);
+				for (int i = 0; i < findImage.size(); i++) {
+					imageResult = findImage.get(i);
+					loveId = userid + imageResult.getId();
+					String islove = loveDao.findLoveById(loveId);
+					imageResult.setIslove(islove);
+					findImage.set(i, imageResult);
+				}
+			} else if(imageCondition.getIsUser() == 1) {
+				findImgCon.setIsuser(1);
+				// 根据用户id查询
+				findImage = imageDao.findImage(findImgCon);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,6 +104,7 @@ public class ImageServiceImpl implements ImageService {
 	}
 	@RequestLog("修改图片信息")
 	@Override
+	@Transactional
 	public int updateImage(SysImage sysImage) {
 		if (sysImage == null) {
 			throw new ServiceException("请输入信息!");
@@ -106,6 +134,7 @@ public class ImageServiceImpl implements ImageService {
 	}
 	@RequestLog("删除图片")
 	@Override
+	@Transactional
 	public int deleteImgById(Integer id) {
 		if (id == null || id < 0) {
 			throw new ServiceException("图片id获取失败");
@@ -117,6 +146,29 @@ public class ImageServiceImpl implements ImageService {
 			throw new ServiceException("删除失败");
 		}
 		return rows;
+	}
+	@Override
+	@Transactional
+	public void saveLove(Integer imageId, Integer isAdd) {
+		ImageResult image =  imageDao.findImageById(imageId);
+		Integer loveNum = image.getLove();
+		SysUser user = ShiroUtils.getPrincipal();
+		SysLove sysLove = new SysLove();
+		String loveId = user.getId() + imageId;
+		sysLove.setId(loveId);
+		sysLove.setImageid(imageId);
+		sysLove.setUserid(user.getId());
+		if (isAdd == 1) {
+			loveNum++;
+			loveDao.saveLove(sysLove);
+		} else {
+			loveNum--;
+			loveDao.deleteById(loveId);
+		}
+		SysImage sysImage = new SysImage();
+		sysImage.setId(imageId);
+		sysImage.setLove(loveNum);
+		imageDao.updateImageLove(sysImage);
 	}
 
 }

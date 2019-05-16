@@ -24,7 +24,8 @@ function initMyImages(){
 			var param = {
 					"isUser" : 1,
 					"page" : page,
-					"limit" : 6
+					"limit" : 6,
+					"islove" : 0
 			}
 			//以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
 			$.getJSON(url,param,function(res){

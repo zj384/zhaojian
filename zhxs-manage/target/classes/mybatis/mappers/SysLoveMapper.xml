@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhxs.sys.dao.LoveDao">
+	<sql id="allRows">
+		id, userid, imageid
+	</sql>
+	<insert id="saveLove">
+		insert into love(id,userid,imageid) values(#{id},#{userid},#{imageid})
+	</insert>
+	<select id="findLoveById" resultType="String">
+		select
+		id
+		from love where id = #{id}
+	</select>
+	<delete id="deleteById">
+		delete from love where id = #{id}
+	</delete>
+</mapper>

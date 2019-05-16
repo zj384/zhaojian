@@ -9,6 +9,7 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.druid.util.StringUtils;
 import com.zhxs.common.annotation.RequestLog;
@@ -47,6 +48,7 @@ public class SysUserServiceImpl implements UserService {
 	}
 	// 新增用户
 	@Override
+	@Transactional
 	public int saveUser(SysUser user) {
 		// 信息校验
 		if (user == null) {
@@ -77,6 +79,7 @@ public class SysUserServiceImpl implements UserService {
 	}
 	@RequestLog("修改用户信息")
 	@Override
+	@Transactional
 	public int updateUserAndClass(UserAndClass userAndClass) {
 		SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
 		if (user == null) {
@@ -116,6 +119,7 @@ public class SysUserServiceImpl implements UserService {
 	
 	@RequestLog("删除用户")
 	@Override
+	@Transactional
 	public int deleteUser(String id) {
 		int rows = 0;
 		try {
@@ -132,6 +136,7 @@ public class SysUserServiceImpl implements UserService {
 		return count;
 	}
 	@Override
+	@Transactional
 	public void updatePassword(String oldPassword, String password) {
 		if (StringUtils.isEmpty(oldPassword)) {
 			throw new ServiceException("请输入原密码!");
@@ -156,8 +161,4 @@ public class SysUserServiceImpl implements UserService {
 			throw new ServiceException("服务器错误,密码修改失败!");
 		}
 	}
-
-
-
-
 }

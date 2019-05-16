@@ -16,7 +16,6 @@ var $ = layui.$, setter = layui.setter, admin = layui.admin, form = layui.form, 
 				doAdd("103");
 			});
 			form.on('submit(setmyinfo)', function(data) {
-				console.log(data);
 				doInsertClazzUser(data.field);
 				return true;
 			});
@@ -130,7 +129,6 @@ var $ = layui.$, setter = layui.setter, admin = layui.admin, form = layui.form, 
 							layer.close(layer.index);
 						},
 						btn2 : function(index, layero) {
-							console.log("fuck");
 						}
 					});
 		}

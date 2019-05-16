@@ -13,6 +13,7 @@ import com.zhxs.sys.entity.SysImage;
 import com.zhxs.sys.service.FileService;
 import com.zhxs.sys.service.ImageService;
 import com.zhxs.sys.vo.FileResult;
+import com.zhxs.sys.vo.ImageCondition;
 import com.zhxs.sys.vo.ImageResult;
 
 @Controller
@@ -49,8 +50,8 @@ public class ImageController {
 	
 	@RequestMapping("doFindImage")
 	@ResponseBody
-	public JsonResult doFindImage(Integer level, Integer isUser, Integer page, Integer limit) {
-		List<ImageResult> findImage = imageService.findImage(level, isUser, page, limit);
+	public JsonResult doFindImage(ImageCondition imageCondition) {
+		List<ImageResult> findImage = imageService.findImage(imageCondition);
 		return new JsonResult(findImage);
 	}
 	@RequestMapping("doFindImgById")
@@ -76,5 +77,12 @@ public class ImageController {
 	public JsonResult doDeleteImgById(Integer id) {
 		imageService.deleteImgById(id);
 		return new JsonResult("删除成功");
+	}
+	@RequestMapping("changeLove")
+	@ResponseBody
+	public JsonResult changeLoge(Integer imageId, Integer isAdd) {
+		imageService.saveLove(imageId,isAdd);
+		return new JsonResult("ok");
+		
 	}
 }

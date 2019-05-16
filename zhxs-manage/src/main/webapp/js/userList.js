@@ -38,7 +38,6 @@
 		function doQuery(param) {
 			var url = "/user/doFindAllUser";
 			$.getJSON(url, param, function(result) {
-				console.log(result);
 				doGetObjects(result.data);
 			});
 		}

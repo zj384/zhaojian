@@ -10,6 +10,7 @@ public class SysImage implements Serializable {
 	private String userid;
 	private String url;
 	private String ddr;
+	private Integer love;
 	private Date createtime;
 	public Integer getId() {
 		return id;
@@ -40,6 +41,12 @@ public class SysImage implements Serializable {
 	}
 	public void setDdr(String ddr) {
 		this.ddr = ddr;
+	}
+	public Integer getLove() {
+		return love;
+	}
+	public void setLove(Integer love) {
+		this.love = love;
 	}
 	public Date getCreatetime() {
 		return createtime;

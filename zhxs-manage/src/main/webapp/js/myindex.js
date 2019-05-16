@@ -15,6 +15,9 @@ var laypage = layui.laypage, layer = layui.layer;
 	doLoadUI(".gzUI", "/sys/doAlbumUI");
 	doLoadUI(".uploadUI", "/sys/doUploadUI");
     backTop();
+	$(document).on("click",".icon-love",function(e){
+		changeLove(e.target);
+	});
 }();
 function backTop(){
 	util.fixbar({  //返回顶部

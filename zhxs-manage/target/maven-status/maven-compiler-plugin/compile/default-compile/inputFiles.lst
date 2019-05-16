@@ -34,6 +34,7 @@ D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\sys\controller\ImageController
 D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\sys\dao\SchoolDao.java
 D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\common\vo\UUIDUtils.java
 D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\sys\service\IndexService.java
+D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\sys\dao\LoveDao.java
 D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\sys\service\SchoolService.java
 D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\sys\controller\indexController.java
 D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\sys\controller\TestController.java

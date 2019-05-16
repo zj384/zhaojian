@@ -107,18 +107,7 @@ body{font: 14px 宋体 Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-se
 
 /*album*/
 .album-content .img-info{background: #faf8fb;margin-top: 66px; overflow: hidden; font-size: 16px; margin-bottom: 66px;}
-/* .album-content .img-info img{float: left; padding-right: 60px;} */
-.album-content .img-info .new-img {
-	width: 580px;
-	height: 400px;;
-	max-width: 100%;
-	overflow: hidden;
-	position: relative;
-	float: left;
-	 padding-right: 60px;
-}
-
-.album-content .img-info .new-img img {
+.album-content .layer-photos-demo .layui-carousel img {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -127,12 +116,18 @@ body{font: 14px 宋体 Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-se
 	width: 100%;
 	height: auto;
 }
-
 .album-content .img-info .title{width: 340px; line-height: 30px; float: left; margin-top: 120px; padding-left: 20px;}
 .album-content .img-info .title .data{color: #ff7f21;}
 .album-content .img-info .title .data span{padding-left: 35px;}
-.album-content .img-list{padding-bottom: 50px;background: #faf8fb;}
-.album-content .img-list .item{float: left; width: 100%;}
+.album-content .img-list{padding-bottom: 50px;}
+.album-content .img-list .item{float: left; width: 100%; height: 345px; background: #faf8fb;border-radius: 5px;}
+.album-content .img-list .item:hover{
+	background: #FAF8DF;
+	margin-top: -2px;
+}
+.album-content .img-list .item:hover .love{
+	bottom: 23px;
+}
 .album-content .img-list .layui-laypage{margin: 50px 0;}
 .album-content .img-list .space .imgList{padding: 15px; height: 366px}
 .album-content .img-list .layui-col-space80{padding: 40px;}
@@ -153,6 +148,13 @@ body{font: 14px 宋体 Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-se
             width: 100%;
             height: auto;
         }
+.album-content .img-list .love{
+    color: #FF7FC8;
+	position: absolute;
+    right: 25px;
+    bottom: 21px;
+    z-index: 999999;
+}
 .album-content .img-list .cont-text{padding-left: 10px;}
 .album-content .img-list .cont-text .data{line-height: 35px; color: #ff7f21;}
 .album-content .img-list .cont-text .briefly{line-height: 24px; margin-top: 16px;

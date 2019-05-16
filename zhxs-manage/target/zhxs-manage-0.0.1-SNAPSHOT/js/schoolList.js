@@ -1,4 +1,3 @@
-var table = layui.table, form = layui.form, $ = layui.jquery, layer = layui.layer, layedit = layui.layedit, laydate = layui.laydate;
 		!function() {
 			// 加载所有省的选项
 			doClear();
@@ -35,7 +34,6 @@ var table = layui.table, form = layui.form, $ = layui.jquery, layer = layui.laye
 		}();
 
 		function doAdd(data) {
-			console.log(data.id);
 			var btname = "保存";
 			var title = "新增信息";
 			var url = "/school/doSaveSchool";
@@ -88,9 +86,7 @@ var table = layui.table, form = layui.form, $ = layui.jquery, layer = layui.laye
 					}
 				},
 				btn2 : function(index, layero) {
-					console.log("fuck");
 				}
-
 			});
 		}
 		function doDeleteSchoolById(id, obj) {

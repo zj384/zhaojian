@@ -11,6 +11,8 @@ public class ImageResult implements Serializable {
 	private String url;
 	private Date createtime;
 	private String ddr;
+	private Integer love;
+	private String islove;
 	public Integer getId() {
 		return id;
 	}
@@ -46,5 +48,17 @@ public class ImageResult implements Serializable {
 	}
 	public void setDdr(String ddr) {
 		this.ddr = ddr;
+	}
+	public Integer getLove() {
+		return love;
+	}
+	public void setLove(Integer love) {
+		this.love = love;
+	}
+	public String getIslove() {
+		return islove;
+	}
+	public void setIslove(String islove) {
+		this.islove = islove;
 	}
 }

@@ -34,7 +34,6 @@
 		}();
 
 		function doAdd(data) {
-			console.log(data.id);
 			var btname = "保存";
 			var title = "新增信息";
 			var url = "/school/doSaveSchool";
@@ -87,9 +86,7 @@
 					}
 				},
 				btn2 : function(index, layero) {
-					console.log("fuck");
 				}
-
 			});
 		}
 		function doDeleteSchoolById(id, obj) {

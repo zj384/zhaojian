@@ -1,69 +1,82 @@
 !function() {
 	// 加载图片信息
 	var id = $(".indexBody").data("school");
-	initImage(id);
-	flow.lazyimg();//图片流式加载
-}();
-function initImage(id) {
 	var level = getLevel(id);
+	initImage(level);
+	flow.lazyimg();//图片流式加载
+	initBestLoveImage(level);
+	bestLoveImage();
+}();
+function bestLoveImage(){
+	//建造实例
+	carousel.render({
+		elem: '#new-image'
+			,width: '100%' //设置容器宽度
+			,height: '350px'
+			,arrow: 'hover' //始终显示箭头
+			,anim: 'fade' //切换动画方式
+	});
+}
+function initBestLoveImage(level){
 	var url = "/pic/doFindImage";
 	var param = {
 			"level" : level,
 			"isUser" : 0,
 			"page" : 1,
-			"limit" : 7
-	}
-	$.getJSON(url,param,function(result) {
-		if (result.state == 1) {
-			var $html = "";
-			var $new = "";
-			if (result.data != null) {
-				$.each(result.data,function(index, item) {
-					if (index == 0) {
-						$new += "<div class='new-img bigImage'><img src='"+item.url+"' alt=''></div>"
-						+ "<div class='title'>"
-						+ "<p class='data'>"
-						+ "最新上传<span>"
-						+ createTime(item.createtime)
-						+ "</span>"
-						+ "</p>"
-						+ "<p class='address'>"
-						+ "<i class='layui-icon layui-icon-username'></i><span>"
-						+ item.nickname
-						+ "</span>"
-						+ "</p>"
-						+ "<p class='text'>"
-						+ item.ddr
-						+ "</p>"
-						+ "</div>";
-					} else {
-						$html += getHtml(item);
-					}
-				});
-				$("#new-image").empty();
-				$("#new-image").append($new);
-				$("#imageList").empty();
-				$("#imageList").append($html);
-			}
-		} else {
-			layer.msg(result.message);
+			"limit" : 4,
+			"islove" : 1
+	};
+	$.getJSON(url, param, function(result){
+		if(result.state){
+			$.each(result.data, function(index, item){
+				$("#image"+index+" img").attr("src",item.url);
+			});
 		}
-		getBigPhoto();
-		getLoadImage(level,url);
 	});
 }
-function getLoadImage(level,url){
+function changeLove(e){
+	var loveNum = $(e).prev().text();
+	var imageId = $(e).next().val();
+	if ($(e).attr("value")==0){
+		saveLove(imageId, 1);
+		$(e).html("&#xe67a;");
+		$(e).attr("value", "1");
+		loveNum++;
+		$(e).prev().html(loveNum);
+	} else {
+		saveLove(imageId, 0);
+		$(e).html("&#xe67b;");
+		$(e).attr("value", "0");
+		loveNum--;
+		$(e).prev().html(loveNum);
+	}
+}
+function saveLove(imageId,isAdd){
+	var url = "/pic/changeLove";
+	var param = {
+			"imageId" : imageId,
+			"isAdd" : isAdd
+	}
+	$.post(url, param,function(result){
+		 if (!result.state) {
+			 layer.msg("服务器出错!");
+		 }
+	});
+}
+function initImage(level) {
+	var url = "/pic/doFindImage";
 	flow.load({
 		elem: '#imageList' //指定列表容器
-			,end: ''
+			,end: ' '
 			,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
 				var lis = [];
 				var $html = "";
 				var param = {
 						"level" : level,
 						"isUser" : 0,
-						"page" : page+1,
-						"limit" : 6
+						"page" : page,
+						"limit" : 6,
+						"islove" : 0
 				}
 				//以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
 				$.getJSON(url,param,function(res){
@@ -88,6 +101,7 @@ function getLoadImage(level,url){
 }
 function getHtml(item){
 	var $html = "";
+	var islove = (item.islove == null) ? ("'0'>&#xe67b;") : ("'1'>&#xe67a;");
 	$html = "<div class='layui-col-xs12 layui-col-sm4 layui-col-md4 imgList'>"
 		+ "<div class='item'>"
 		+ "<div class='image bigImage'><img layer-src='"+item.url+"' lay-src='"+thumbnail(item.url)+"' alt='"+item.ddr+"'></div>"
@@ -104,6 +118,9 @@ function getHtml(item){
 		+ item.ddr
 		+ "</p>"
 		+ "</div>"
+		+ "<div class='love'><span>" + item.love 
+		+ "</span><i class='layui-icon icon-love' value="+ islove +"</i><input type='hidden' value='" 
+		+ item.id + "'></input></div>"
 		+ "</div>"
 		+ "</div>";
 	return $html;

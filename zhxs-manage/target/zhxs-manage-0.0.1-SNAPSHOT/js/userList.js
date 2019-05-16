@@ -1,4 +1,3 @@
-		var table = layui.table, form = layui.form, $ = layui.jquery, layer = layui.layer, layedit = layui.layedit, laydate = layui.laydate;
 		!function() {
 			// 查询按钮事件
 			form.on('submit(query)', function(data) {
@@ -39,7 +38,6 @@
 		function doQuery(param) {
 			var url = "/user/doFindAllUser";
 			$.getJSON(url, param, function(result) {
-				console.log(result);
 				doGetObjects(result.data);
 			});
 		}

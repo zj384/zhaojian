@@ -28,6 +28,7 @@ com\zhxs\sys\service\Impl\ImageServiceImpl.class
 com\zhxs\sys\service\Impl\FileServiceImpl.class
 com\zhxs\sys\service\ConService.class
 com\zhxs\sys\dao\SchoolDao.class
+com\zhxs\sys\dao\LoveDao.class
 com\zhxs\sys\dao\ClassDao.class
 com\zhxs\sys\dao\CityDao.class
 com\zhxs\common\util\IPUtils.class

@@ -18,7 +18,6 @@
 			}
 			var url = "/con/doDeleteLogsByIds";
 			var params = {"ids":ids.toString()};
-			console.log(params);
 			$.post(url,params,function(result){
 				if (result.state == 1) {
 					layer.msg(result.message);
@@ -27,7 +26,6 @@
 					layer.msg(result.message);
 				}
 			});
-			console.log(ids.toString());
 		}
 		function doPageInfo(count) {
 			//总页数低于页码总数
@@ -60,7 +58,6 @@
 			})
 		}
 		function doFindAllObject(curr, limit) {
-			console.log(limit);
 			layer.load();
 			var url = "/con/doFindAllLogs";
 			var params = {

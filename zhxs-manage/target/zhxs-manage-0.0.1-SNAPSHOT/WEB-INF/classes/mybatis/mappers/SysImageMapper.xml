@@ -3,17 +3,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhxs.sys.dao.ImageDao">
 	<sql id="allRows">
-		id, clazzid, userid, url, ddr, createtime
+		id, clazzid, userid, url, ddr, love, createtime
 	</sql>
 	<sql id="findByXXX">
 		<where>
-			<if test="clazzid != null and clazzid != ''">
+			<if test="isuser == 0">
 				clazzid = #{clazzid}
 			</if>
-			<if test="userid != null and userid != ''">
+			<if test="isuser == 1">
 				and userid = #{userid}
 			</if>
 		</where>
+	</sql>
+	<sql id="orderByXXX">
+		<if test="islove == 1">
+			order by love desc
+		</if>
+		<if test="islove == 0">
+			order by createtime desc
+		</if>
 	</sql>
 	<sql id="setInfo">
 		<set>
@@ -26,7 +34,6 @@
              <if test="clazzid!=null and clazzid!=''">
                clazzid=#{clazzid},
              </if>
-             createtime = now()
 		</set>
 	</sql>
 	<resultMap type="com.zhxs.sys.vo.ImageResult" id="imageInfo">
@@ -49,7 +56,7 @@
 		<include refid="allRows"></include>
 		from image
 		<include refid="findByXXX"></include>
-		order by createtime desc
+		<include refid="orderByXXX"></include>
 		limit #{startIndex},#{limit}
 	</select>
 	<select id="findImageById" resultMap="imageInfo">
@@ -75,12 +82,17 @@
 	</select>
 	<select id="selectImageCount" resultType="int">
 		select
-		count(*)
+		count(1)
 		from image
 	</select>
 	<delete id="deleteImageById">
 		delete from image where id=#{id}
 	</delete>
+	<update id="updateImageLove">
+		update image
+		set love = #{love}
+		where id = #{id}
+	</update>
 	
 
 </mapper>

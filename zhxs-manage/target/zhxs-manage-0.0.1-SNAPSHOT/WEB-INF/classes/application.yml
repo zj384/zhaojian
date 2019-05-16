@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8093
   servlet:    context-path: /
 spring:  datasource:
         #引入druid数据源
@@ -7,7 +7,7 @@ spring:  datasource:
     url: jdbc:mysql://172.19.83.94:3306/db?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
     #url: jdbc:mysql:///db?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
     username: root
-    password:   thymeleaf:
+    password:  thymeleaf:
       prefix: /WEB-INF/pages/
       suffix: .html
   servlet:

@@ -7,7 +7,6 @@ var $ = layui.jquery, upload = layui.upload, form = layui.form;
 			doinitUpdateImage(imgId);
 		}
 		form.on('submit(addimage)', function(data) {
-			console.log("hehe");
 			doSaveOrUpdateImage(data);
 			return true;
 		});
@@ -19,7 +18,6 @@ var $ = layui.jquery, upload = layui.upload, form = layui.form;
 		};
 		$.getJSON(url, params, function(result) {
 			if (result.state == 1) {
-				console.log(result);
 				$("textarea[name='ddr']").text(result.data.ddr);
 				$("#demo1").prop("src", result.data.url);
 				$("input[name='id']").val(result.data.id);

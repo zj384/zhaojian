@@ -35,8 +35,6 @@ public class FileServiceImpl implements FileService {
 
 		//1.获取文件名称  abc.jpg/JPG
 		String fileName = uploadFile.getOriginalFilename();
-		System.out.println(fileName);
-		System.out.println(localPath+urlPath);
 		//2.将文件名称统统小写. 方便以后判断
 		fileName = fileName.toLowerCase();
 		//3.利用正则表达式判断. 

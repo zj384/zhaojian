@@ -1,7 +1,23 @@
 <div class="content">
 	<div class="album-content w1000" id="layer-photos-demo">
 		<div class="layer-photos-demo">
-			<div class="img-info" id="new-image"></div>
+			<div class="banimg-infoner layui-carousel" id="new-image">
+				<div carousel-item>
+					<div id="image0">
+						<img src="/res/img/view.jpg">
+					</div>
+					<div id="image1">
+						<img src="/res/img/view1.jpg">
+					</div>
+					<div id="image2">
+						<img src="/res/img/view2.jpg">
+					</div>
+					<div id="image3">
+						<img src="/res/img/view3.jpg">
+					</div>
+				</div>
+			</div>
+
 			<div class="img-list">
 				<div class="layui-fluid" style="padding: 0">
 					<div class="layui-row layui-col-space30 space" id="imageList">
@@ -13,7 +29,8 @@
 	</div>
 </div>
 <ul class="layui-fixbar">
-		<li class="layui-icon layui-fixbar-top" lay-type="top"
-			style="display: list-item;" onclick='$("html,body").animate({"scrollTop":0});'></li>
+	<li class="layui-icon layui-fixbar-top" lay-type="top"
+		style="display: list-item;"
+		onclick='$("html,body").animate({"scrollTop":0});'></li>
 </ul>
 <script src="../js/album.js"></script>
