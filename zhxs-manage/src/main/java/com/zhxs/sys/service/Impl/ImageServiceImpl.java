@@ -2,7 +2,6 @@ package com.zhxs.sys.service.Impl;
 
 import java.util.List;
 
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.druid.util.StringUtils;
 import com.zhxs.common.annotation.RequestLog;
 import com.zhxs.common.exception.ServiceException;
-import com.zhxs.common.util.ShiroUtils;
 import com.zhxs.sys.dao.ImageDao;
 import com.zhxs.sys.dao.LoveDao;
 import com.zhxs.sys.entity.SysImage;
@@ -31,17 +29,15 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	@Transactional
 	public int saveImage(SysImage sysImage) {
-		SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
-		if (user == null) {
-			throw new ServiceException("请先登录!");
-		}
 		if (sysImage == null) {
 			throw new ServiceException("请输入信息!");
+		}
+		if (sysImage.getUserid() == null) {
+			throw new ServiceException("请先登录!");
 		}
 		if (sysImage.getClazzid() == null) {
 			throw new ServiceException("请选择班级");
 		}
-		sysImage.setUserid(user.getId());
 		int rows = 0;
 		try {
 			rows = imageDao.insertImage(sysImage);
@@ -53,20 +49,17 @@ public class ImageServiceImpl implements ImageService {
 	}
 	@RequestLog("浏览图片")
 	@Override
-	public List<ImageResult> findImage(ImageCondition imageCondition) {
-		SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
+	public List<ImageResult> findImage(ImageCondition imageCondition,SysUser user) {
 		int startIndex = imageCondition.getLimit() * (imageCondition.getPage()-1);
-		if (user == null) {
-			throw new ServiceException("请先登录!");
-		}
-		String clazzid = imageDao.findClassIdByUserIdAndLevel(user.getId(), imageCondition.getLevel());
+		String userid = user.getId();
+
+		String clazzid = imageDao.findClassIdByUserIdAndLevel(userid, imageCondition.getLevel());
 		
 		if (StringUtils.isEmpty(clazzid) && imageCondition.getIsUser() == 0) {
 			throw new ServiceException("您未添加此班级");
 		}
 		List<ImageResult> findImage = null;
 		FindImgCon findImgCon = new FindImgCon();
-		String userid = user.getId();
 		findImgCon.setIslove(imageCondition.getIslove());//是否根据点赞数条件查询
 		findImgCon.setLimit(imageCondition.getLimit());
 		findImgCon.setStartIndex(startIndex);
@@ -149,10 +142,9 @@ public class ImageServiceImpl implements ImageService {
 	}
 	@Override
 	@Transactional
-	public void saveLove(Integer imageId, Integer isAdd) {
+	public void saveLove(Integer imageId, Integer isAdd, SysUser user) {
 		ImageResult image =  imageDao.findImageById(imageId);
 		Integer loveNum = image.getLove();
-		SysUser user = ShiroUtils.getPrincipal();
 		SysLove sysLove = new SysLove();
 		String loveId = user.getId() + imageId;
 		sysLove.setId(loveId);

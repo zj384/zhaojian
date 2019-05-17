@@ -15,4 +15,5 @@ public interface UserDao {
 	int deleteUserById(String id);
 	int getUserCount();
 	void updatePassword(SysUser user);
+	SysUser findUserByUserId(String userid);
 }

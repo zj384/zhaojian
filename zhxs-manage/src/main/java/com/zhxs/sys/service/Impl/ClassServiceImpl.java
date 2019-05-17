@@ -2,7 +2,6 @@ package com.zhxs.sys.service.Impl;
 
 import java.util.List;
 
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +41,7 @@ public class ClassServiceImpl implements ClassService {
 		return id;
 	}
 	@Override
-	public List<SysClass> findClass() {
-		SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
+	public List<SysClass> findClass(SysUser user) {
 		if (user == null) {
 			throw new ServiceException("请先登录");
 		}

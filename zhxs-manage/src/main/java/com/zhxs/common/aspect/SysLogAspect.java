@@ -16,7 +16,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zhxs.common.annotation.RequestLog;
 import com.zhxs.common.util.IPUtils;
-import com.zhxs.common.util.ShiroUtils;
+import com.zhxs.common.util.UserThreadLocal;
 import com.zhxs.sys.dao.LogDao;
 import com.zhxs.sys.entity.SysLog;
 
@@ -56,8 +56,7 @@ public class SysLogAspect {
     	Method targetMethod=
     	targetClass.getDeclaredMethod(methodName,parameterTypes);
     	//获取登陆用户
-    	String username=
-    	ShiroUtils.getPrincipal().getUsername();
+    	String username=UserThreadLocal.get().getUsername();
     	//获取方法参数
     	Object[] paramsObj=point.getArgs();
     	//将参数转换为字符串

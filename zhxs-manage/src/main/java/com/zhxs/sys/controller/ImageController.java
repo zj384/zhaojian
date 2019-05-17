@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.zhxs.common.util.UserThreadLocal;
 import com.zhxs.common.vo.JsonResult;
 import com.zhxs.sys.entity.SysImage;
+import com.zhxs.sys.entity.SysUser;
 import com.zhxs.sys.service.FileService;
 import com.zhxs.sys.service.ImageService;
 import com.zhxs.sys.vo.FileResult;
@@ -38,6 +40,7 @@ public class ImageController {
 	@RequestMapping("doSaveImage")
 	@ResponseBody
 	public JsonResult doSaveImage(SysImage sysImage) {
+		sysImage.setUserid(UserThreadLocal.get().getId());
 		imageService.saveImage(sysImage);
 		return new JsonResult("图片信息上传成功!");
 	}
@@ -51,7 +54,8 @@ public class ImageController {
 	@RequestMapping("doFindImage")
 	@ResponseBody
 	public JsonResult doFindImage(ImageCondition imageCondition) {
-		List<ImageResult> findImage = imageService.findImage(imageCondition);
+		SysUser user = UserThreadLocal.get();
+		List<ImageResult> findImage = imageService.findImage(imageCondition,user);
 		return new JsonResult(findImage);
 	}
 	@RequestMapping("doFindImgById")
@@ -81,7 +85,8 @@ public class ImageController {
 	@RequestMapping("changeLove")
 	@ResponseBody
 	public JsonResult changeLoge(Integer imageId, Integer isAdd) {
-		imageService.saveLove(imageId,isAdd);
+		SysUser user = UserThreadLocal.get();
+		imageService.saveLove(imageId, isAdd, user);
 		return new JsonResult("ok");
 		
 	}

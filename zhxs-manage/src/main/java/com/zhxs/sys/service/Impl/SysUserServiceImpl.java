@@ -3,49 +3,32 @@ package com.zhxs.sys.service.Impl;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
 
 import com.alibaba.druid.util.StringUtils;
 import com.zhxs.common.annotation.RequestLog;
 import com.zhxs.common.exception.ServiceException;
-import com.zhxs.common.util.ShiroUtils;
+import com.zhxs.common.util.ObjectMapperUtil;
 import com.zhxs.common.vo.UUIDUtils;
 import com.zhxs.sys.dao.UserDao;
 import com.zhxs.sys.entity.SysUser;
 import com.zhxs.sys.service.UserService;
 import com.zhxs.sys.vo.UserAndClass;
 
+import redis.clients.jedis.JedisCluster;
+
 @Service
 public class SysUserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 
-	@RequestLog("用户登录")
-	@Override
-	public String loginUserOrAdmin(String username, String password) {
-		// 1.获取Subject对象
-		Subject subject = SecurityUtils.getSubject();
-		// 2.通过Subject提交用户信息,交给shiro框架进行认证操作
-		// 2.1对用户进行封装
-		UsernamePasswordToken token = new UsernamePasswordToken(username, // 身份信息
-				password);// 凭证信息
-		// 2.2对用户信息进行身份认证
-		subject.login(token);
-		// 分析:
-		// 1)token会传给shiro的SecurityManager
-		// 2)SecurityManager将token传递给认证管理器
-		// 3)认证管理器会将token传递给realm
-		if ("admin".equals(username)) {
-			return "/doManageUI";
-		}
-		return "/doIndexUI";
-	}
+	@Autowired
+	private JedisCluster jedisCluster;
+
 	// 新增用户
 	@Override
 	@Transactional
@@ -80,14 +63,13 @@ public class SysUserServiceImpl implements UserService {
 	@RequestLog("修改用户信息")
 	@Override
 	@Transactional
-	public int updateUserAndClass(UserAndClass userAndClass) {
-		SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
+	public int updateUserAndClass(UserAndClass userAndClass,SysUser user) {
 		if (user == null) {
 			throw new ServiceException("请先登录!");
 		}
 		user.setName(userAndClass.getName());
 		user.setNickname(userAndClass.getNickname());
-
+		
 		String userid = user.getId();
 		try {
 			userDao.updateUserById(user);
@@ -137,14 +119,14 @@ public class SysUserServiceImpl implements UserService {
 	}
 	@Override
 	@Transactional
-	public void updatePassword(String oldPassword, String password) {
+	public void updatePassword(String oldPassword, String password, String userid) {
 		if (StringUtils.isEmpty(oldPassword)) {
 			throw new ServiceException("请输入原密码!");
 		}
 		if (StringUtils.isEmpty(password)) {
 			throw new ServiceException("请输入新密码!");
 		}
-		SysUser user = ShiroUtils.getPrincipal();
+		SysUser user = userDao.findUserByUserId(userid);
 		String oldPwd = new SimpleHash("MD5", oldPassword, user.getSalt()).toHex();
 		String salt = UUID.randomUUID().toString();
 		if (oldPwd.equals(user.getPassword())) {
@@ -160,5 +142,24 @@ public class SysUserServiceImpl implements UserService {
 			e.printStackTrace();
 			throw new ServiceException("服务器错误,密码修改失败!");
 		}
+	}
+	@Override
+	public String findUserByUP(String username, String password) {
+		SysUser userDB = userDao.findUserByUserName(username);
+		if (userDB == null) {
+			throw new ServiceException("没有该账户!");
+		}
+		String md5Pass = new SimpleHash("MD5", password, userDB.getSalt()).toHex();
+		if (!md5Pass.equals(userDB.getPassword())) {
+			throw new ServiceException("!");
+		}
+		// 用户名密码正确
+		String token = "ZHXS_TICKET" + System.currentTimeMillis() + username;
+		token = DigestUtils.md5DigestAsHex(token.getBytes());
+		// 必须进行脱敏处理
+		userDB.setPassword("******");
+		String userJSON = ObjectMapperUtil.toJSON(userDB);
+		jedisCluster.setex(token, 7 * 24 * 3600, userJSON);
+		return token;
 	}
 }

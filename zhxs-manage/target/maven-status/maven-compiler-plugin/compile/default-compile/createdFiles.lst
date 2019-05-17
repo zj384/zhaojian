@@ -1,12 +1,15 @@
+com\zhxs\interceptor\UserInterceptor.class
 com\zhxs\sys\controller\SchoolController.class
 com\zhxs\sys\controller\PageController.class
 com\zhxs\sys\dao\UserDao.class
+com\zhxs\common\util\ObjectMapperUtil.class
 com\zhxs\common\vo\UUIDUtils.class
 com\zhxs\sys\controller\ClassController.class
 com\zhxs\sys\service\UserService.class
 com\zhxs\sys\service\Impl\SysUserServiceImpl.class
 com\zhxs\SpringBootRun.class
 com\zhxs\sys\controller\TestController.class
+com\zhxs\config\RedisConfig.class
 com\zhxs\sys\service\Impl\SysSchoolServiceImpl.class
 com\zhxs\sys\service\ImageService.class
 com\zhxs\common\exception\ServiceException.class
@@ -20,11 +23,10 @@ com\zhxs\sys\service\FileService.class
 com\zhxs\common\web\GlobalExceptionHandler.class
 com\zhxs\common\annotation\RequestLog.class
 com\zhxs\sys\controller\AboutController.class
-com\zhxs\config\ShiroConfig.class
 com\zhxs\sys\dao\SchoolTypeDao.class
-com\zhxs\common\util\ShiroUtils.class
 com\zhxs\sys\service\ClassService.class
 com\zhxs\sys\service\Impl\ImageServiceImpl.class
+com\zhxs\common\util\UserThreadLocal.class
 com\zhxs\sys\service\Impl\FileServiceImpl.class
 com\zhxs\sys\service\ConService.class
 com\zhxs\sys\dao\SchoolDao.class
@@ -32,7 +34,7 @@ com\zhxs\sys\dao\LoveDao.class
 com\zhxs\sys\dao\ClassDao.class
 com\zhxs\sys\dao\CityDao.class
 com\zhxs\common\util\IPUtils.class
-com\zhxs\sys\service\realm\ShiroUserRealm.class
+com\zhxs\config\MvcConfigurer.class
 com\zhxs\sys\controller\ImageController.class
 com\zhxs\common\aspect\SysLogAspect.class
 com\zhxs\sys\dao\ImageDao.class

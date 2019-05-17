@@ -18,11 +18,15 @@
 			</if>
 		</where>
 	</sql>
-	<select id="findUserByUserName"
-		resultType="com.zhxs.sys.entity.SysUser">
+	<select id="findUserByUserName" resultType="com.zhxs.sys.entity.SysUser">
 		select
 		<include refid="allRows" />
 		from user where username = #{username}
+	</select>
+	<select id="findUserByUserId" resultType="com.zhxs.sys.entity.SysUser">
+		select
+		<include refid="allRows" />
+		from user where id = #{id}
 	</select>
 	<insert id="insertUser">
 		insert into user(id, username, password, salt, name,

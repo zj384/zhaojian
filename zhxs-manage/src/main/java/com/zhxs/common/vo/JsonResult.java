@@ -24,6 +24,12 @@ public class JsonResult {
 		super();
 		this.data = data;
 	}
+	public JsonResult(int state, String message, Object data) {
+		super();
+		this.state = state;
+		this.message = message;
+		this.data = data;
+	}
 
 	public JsonResult(Throwable e) {
 		this.state = 0;
@@ -53,10 +59,26 @@ public class JsonResult {
 	public void setData(Object data) {
 		this.data = data;
 	}
-
-	@Override
-	public String toString() {
-		return "JsonResult [state=" + state + ", message=" + message + ", data=" + data + "]";
+	// 定义成功的静态方法
+	public static JsonResult ok(String msg, Object data) {
+		return new JsonResult(1, msg, data);
+	}
+	public static JsonResult ok() {
+		return new JsonResult(1, null, null);
+	}
+	public static JsonResult ok(Object data) {
+		return new JsonResult(1, null, data);
+	}
+	
+	//定义失败的静态方法
+	public static JsonResult fail(String msg, Object data) {
+		return new JsonResult(0, msg, data);
+	}
+	public static JsonResult fail() {
+		return new JsonResult(0, null, null);
+	}
+	public static JsonResult fail(String msg) {
+		return new JsonResult(0, msg, null);
 	}
 
 	

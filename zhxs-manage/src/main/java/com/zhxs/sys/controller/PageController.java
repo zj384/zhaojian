@@ -1,24 +1,30 @@
 package com.zhxs.sys.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zhxs.common.util.UserThreadLocal;
 
 @Controller
 public class PageController {
-	@RequestMapping("/page/{moduleName}")
-	public String modele(@PathVariable String moduleName) {
-		return moduleName;
+	@RequestMapping("/*")
+	public String modele() {
+		return "index";
 	}
 	// 加载主页
-		@RequestMapping("doIndexUI")
+		@RequestMapping("/doIndexUI")
 		public String doIndexUI() {
 			return "index";
 		}
 
 	@RequestMapping("/doManageUI")
 	public String doManageUI() {
-		return "manage";
+		String username = UserThreadLocal.get().getUsername();
+		if ("zhaojian".equals(username)) {
+			return "manage";
+		} else {
+			return "index";
+		}
 	}
 	@RequestMapping("/doLoginUI")
 	public String doLoginUI() {

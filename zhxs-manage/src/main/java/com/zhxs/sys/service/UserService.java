@@ -8,17 +8,17 @@ import com.zhxs.sys.vo.UserAndClass;
 public interface UserService {
 	int saveUser(SysUser user);
 
-	int updateUserAndClass(UserAndClass userAndClass);
+	int updateUserAndClass(UserAndClass userAndClass, SysUser user);
 
 	List<SysUser> FindAllUser(SysUser sysUser);
 
 	int deleteUser(String id);
 
-	String loginUserOrAdmin(String username, String password);
-	
 	int getUserCount();
 
-	void updatePassword(String oldPassword, String password);
+	void updatePassword(String oldPassword, String password, String userid);
+
+	String findUserByUP(String username, String password);
 
 
 }

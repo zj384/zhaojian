@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zhxs.common.util.UserThreadLocal;
 import com.zhxs.common.vo.JsonResult;
 import com.zhxs.sys.entity.SysUser;
 import com.zhxs.sys.service.IndexService;
@@ -12,8 +13,9 @@ import com.zhxs.sys.service.IndexService;
 @Controller
 @RequestMapping("/sys/")
 public class indexController {
+	
 	@Autowired
-	private IndexService indexservice;
+	private IndexService indexService;
 	
 	@RequestMapping("doIndexBodyUI")
 	public String doIndexBodyUI() {
@@ -43,7 +45,8 @@ public class indexController {
 	@RequestMapping("doFindUser")
 	@ResponseBody
 	public JsonResult doFindUser() {
-		SysUser user = indexservice.getUser();
+		String userid = UserThreadLocal.get().getId();
+		SysUser user = indexService.findUserById(userid);
 		return new JsonResult(user);
 	}
 }

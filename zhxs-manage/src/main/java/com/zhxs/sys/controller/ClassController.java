@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zhxs.common.util.UserThreadLocal;
 import com.zhxs.common.vo.JsonResult;
 import com.zhxs.sys.entity.SysClass;
+import com.zhxs.sys.entity.SysUser;
 import com.zhxs.sys.service.ClassService;
 
 @Controller
@@ -26,7 +28,8 @@ public class ClassController {
 	@RequestMapping("doFindclass")
 	@ResponseBody
 	public JsonResult doFindclass() {
-		List<SysClass> list = classService.findClass();
+		SysUser user = UserThreadLocal.get();
+		List<SysClass> list = classService.findClass(user);
 		return new JsonResult(list);
 	}
 }

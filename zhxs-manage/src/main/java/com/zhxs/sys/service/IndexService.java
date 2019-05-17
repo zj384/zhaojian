@@ -4,6 +4,6 @@ import com.zhxs.sys.entity.SysUser;
 
 public interface IndexService {
 
-	SysUser getUser();
-	
+	SysUser findUserById(String userid);
+
 }
