@@ -4,26 +4,27 @@ var $ = layui.$, setter = layui.setter, admin = layui.admin, form = layui.form, 
 			doInitUser();
 			doInitClass();
 			$("#xiaoxue").click(function() {
-				if ($("#xiaoxue").attr("class") != "layui-btn layui-btn-disabled")
+				//if ($("#xiaoxue").attr("class") != "layui-btn layui-btn-disabled")
 				doAdd("101");
 			});
 			$("#chuzhong").click(function() {
-				if ($("#chuzhong").attr("class") != "layui-btn layui-btn-disabled")
+				//if ($("#chuzhong").attr("class") != "layui-btn layui-btn-disabled")
 				doAdd("102");
 			});
 			$("#gaozhong").click(function() {
-				if ($("#gaozhong").attr("class") != "layui-btn layui-btn-disabled")
+				//if ($("#gaozhong").attr("class") != "layui-btn layui-btn-disabled")
 				doAdd("103");
 			});
 			form.on('submit(setmyinfo)', function(data) {
+				console.log(data.field);
 				doInsertClazzUser(data.field);
 				return true;
 			});
 			$(".back").click(doToAbout);
 		}();
 		function doToAbout(){
-			$(".content").empty();
-			$(".content").load("/sys/doAboutUI");//工作线程
+			$(".indexBody").empty();
+			$(".indexBody").load("/sys/doAboutUI");//工作线程
 		}
 		function doInsertClazzUser(params){
 			var url = "/user/doUpdateUserInfo";
@@ -58,33 +59,29 @@ var $ = layui.$, setter = layui.setter, admin = layui.admin, form = layui.form, 
 									result.data[i].year + "界"
 											+ result.data[i].schoolname
 											+ result.data[i].clazz + "班");
-							$("#xiaoxue").prop("class",
-									"layui-btn layui-btn-disabled");
+						/*	$("#xiaoxue").prop("class",
+									"layui-btn layui-btn-disabled");*/
 						}
 						if (result.data[i].level == 102) {
 							$("#chuzhong").text(
 									result.data[i].year + "界"
 											+ result.data[i].schoolname
 											+ result.data[i].clazz + "班");
-							$("#chuzhong").prop("class",
-									"layui-btn layui-btn-disabled");
+							/*$("#chuzhong").prop("class",
+									"layui-btn layui-btn-disabled");*/
 						}
 						if (result.data[i].level == 103) {
 							$("#gaozhong").text(
 									result.data[i].year + "界"
 											+ result.data[i].schoolname
 											+ result.data[i].clazz + "班");
-							$("#gaozhong").prop("class",
-									"layui-btn layui-btn-disabled");
+						/*	$("#gaozhong").prop("class",
+									"layui-btn layui-btn-disabled");*/
 						}
 					}
-				} else {
-					layer.msg(result.message);
-				}
-
+				} 
 			});
 		}
-
 		function doAdd(level) {
 			var btname = "保存";
 			var title = "新增信息";

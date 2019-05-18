@@ -24,6 +24,7 @@ com\zhxs\common\web\GlobalExceptionHandler.class
 com\zhxs\common\annotation\RequestLog.class
 com\zhxs\sys\controller\AboutController.class
 com\zhxs\sys\dao\SchoolTypeDao.class
+com\zhxs\common\util\SetUserClass.class
 com\zhxs\sys\service\ClassService.class
 com\zhxs\sys\service\Impl\ImageServiceImpl.class
 com\zhxs\common\util\UserThreadLocal.class

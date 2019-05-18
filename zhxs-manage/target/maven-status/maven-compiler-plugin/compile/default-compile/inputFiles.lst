@@ -23,6 +23,7 @@ D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\sys\service\Impl\ConServiceImp
 D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\sys\service\FileService.java
 D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\sys\service\Impl\FileServiceImpl.java
 D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\common\exception\ServiceException.java
+D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\common\util\SetUserClass.java
 D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\common\util\UserThreadLocal.java
 D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\sys\dao\ImageDao.java
 D:\JT-STS\zhxs\zhxs-manage\src\main\java\com\zhxs\common\util\ObjectMapperUtil.java

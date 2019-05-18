@@ -13,6 +13,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.zhxs.common.annotation.RequestLog;
 import com.zhxs.common.exception.ServiceException;
 import com.zhxs.common.util.ObjectMapperUtil;
+import com.zhxs.common.util.SetUserClass;
 import com.zhxs.common.vo.UUIDUtils;
 import com.zhxs.sys.dao.UserDao;
 import com.zhxs.sys.entity.SysUser;
@@ -73,14 +74,17 @@ public class SysUserServiceImpl implements UserService {
 		String userid = user.getId();
 		try {
 			userDao.updateUserById(user);
-			if (!StringUtils.isEmpty(userAndClass.getXiaoxue())) {
-				userDao.insertClassUser(userAndClass.getXiaoxue(), userid, 101);
+			String xiaoxue = userAndClass.getXiaoxue();
+			String chuzhong = userAndClass.getChuzhong();
+			String gaozhong = userAndClass.getGaozhong();
+			if (!StringUtils.isEmpty(xiaoxue)) {
+				SetUserClass.setInfo(xiaoxue, userid, 101, userDao);
 			}
-			if (!StringUtils.isEmpty(userAndClass.getChuzhong())) {
-				userDao.insertClassUser(userAndClass.getChuzhong(), userid, 102);
+			if (!StringUtils.isEmpty(chuzhong)) {
+				SetUserClass.setInfo(chuzhong, userid, 102, userDao);
 			}
-			if (!StringUtils.isEmpty(userAndClass.getGaozhong())) {
-				userDao.insertClassUser(userAndClass.getGaozhong(), userid, 103);
+			if (!StringUtils.isEmpty(gaozhong)) {
+				SetUserClass.setInfo(gaozhong, userid, 103, userDao);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -14,8 +14,6 @@ spring:  datasource:
     multipart:
       maxFileSize: 10MB
       maxRequestSize: 10MB
-
-    
 #mybatis-plus配置
 mybatis-plus:  type-aliases-package: com.zhxs.sys.entity
   mapper-locations: classpath:/mybatis/mappers/*.xml

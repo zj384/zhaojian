@@ -47,8 +47,11 @@
 	</update>
 	<insert id="insertClassUser">
 		insert into clazzuser(id, clazzid, userid, level)
-		values(null, #{clazzid}, #{userid}, #{level})
+		values(#{id}, #{clazzid}, #{userid}, #{level})
 	</insert>
+	<delete id="deleteUserClassById">
+		delete from clazzuser where userid = #{userid} and level = #{level}
+	</delete>
 	<select id="findAllUser" resultType="com.zhxs.sys.entity.SysUser">
 		select
 		<include refid="allRows"></include>

@@ -1,6 +1,7 @@
 com\zhxs\sys\vo\UserAndClass.class
 com\zhxs\sys\entity\SysLog.class
 com\zhxs\sys\entity\SysLove.class
+com\zhxs\sys\entity\SysUserClass.class
 com\zhxs\sys\entity\SysUser.class
 com\zhxs\sys\vo\ImageResult.class
 com\zhxs\sys\entity\SysCity.class

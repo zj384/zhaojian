@@ -53,7 +53,14 @@ var $ = layui.jquery, upload = layui.upload, form = layui.form;
 				}
 				form.render('radio');
 			} else {
-				layer.msg(result.message);
+				layer.msg(result.message, {
+					time : 500
+				}, function() {
+					$(".indexBody").empty();
+					$(".indexBody").load("/about/doInfoUI");//工作线程
+					$(".nav a").prop("style","color:#3f2863");
+					$(".nav .aboutUI").prop("style","color:#ff7f21");
+				});
 			}
 		});
 	}
