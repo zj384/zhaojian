@@ -22,8 +22,8 @@ var $ = layui.$, setter = layui.setter, admin = layui.admin, form = layui.form, 
 			$(".back").click(doToAbout);
 		}();
 		function doToAbout(){
-			$(".content").empty();
-			$(".content").load("/sys/doAboutUI");//工作线程
+			$(".indexBody").empty();
+			$(".indexBody").load("/sys/doAboutUI");//工作线程
 		}
 		function doInsertClazzUser(params){
 			var url = "/user/doUpdateUserInfo";

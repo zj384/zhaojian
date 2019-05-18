@@ -156,9 +156,13 @@ body a, body a * {
 .album-content .img-list .love{
     color: #FF7FC8;
 	position: absolute;
+	font-size: 20px;
     right: 25px;
     bottom: 21px;
     z-index: 999999;
+}
+.album-content .img-list .love i{
+	font-size: 20px;
 }
 .album-content .img-list .cont-text{padding-left: 10px;}
 .album-content .img-list .cont-text .data{line-height: 35px; color: #ff7f21;}
